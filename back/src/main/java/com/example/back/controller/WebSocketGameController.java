@@ -67,4 +67,11 @@ public class WebSocketGameController {
         return objectMapper.writeValueAsString(new MessageDTO<>(MessageType.RESULT, new ResultDTO(board.get())));
     }
 
+    @SneakyThrows
+    @SendTo("/topic/{id}")
+    @MessageMapping("/game/{id}/ping")
+    public String ping(@DestinationVariable Long id){
+        return "pong";
+    }
+
 }

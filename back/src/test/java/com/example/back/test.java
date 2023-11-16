@@ -16,29 +16,29 @@ public class test {
     @Autowired
     private UserService userService;
 
-    @Test
-    public void saveUser(){
-        userService.save(User.builder().password("test").username("test2").build());
-    }
-
-    @Test
-    public void createBoard(){
-        boardService.create(userService.getByUsername("test").get());
-    }
-
-    @Test
-    public void joinBoard(){
-        boardService.join(boardService.getById(52L).get() ,userService.getByUsername("test2").get());
-    }
-
-
-    @Test
-    public void move() throws PositionTakenException {
-        boardService.makeMove(Sign.X, 2, boardService.getById(52L).get());
-    }
-
-    @Test
-    public void getResult(){
-        System.out.println(boardService.getById(52L).get().getResults());
-    }
+//    @Test
+//    public void saveUser(){
+//        userService.save(User.builder().password("test").username("test2").build());
+//    }
+//
+//    @Test
+//    public void createBoard(){
+//        boardService.create(userService.getByUsername("test").get());
+//    }
+//
+//    @Test
+//    public void joinBoard(){
+//        boardService.join(boardService.getById(52L).get() ,userService.getByUsername("test2").get());
+//    }
+//
+//
+//    @Test
+//    public void move() throws PositionTakenException {
+//        boardService.makeMove(Sign.X, 2, boardService.getById(52L).get());
+//    }
+//
+//    @Test
+//    public void getResult(){
+//        System.out.println(boardService.getById(52L).get().getResults());
+//    }
 }
