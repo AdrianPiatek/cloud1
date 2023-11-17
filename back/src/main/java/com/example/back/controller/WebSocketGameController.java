@@ -30,9 +30,6 @@ public class WebSocketGameController {
         var board = boardService.getById(id);
         if (board.isEmpty())
             return "Game with this ID dose not exist";
-        if (board.get().getState() == State.WAITING_FOR_PLAYERS)
-            return objectMapper.writeValueAsString(new MessageDTO<>(MessageType.INFO, new GameDTO(board.get())));
-
         return objectMapper.writeValueAsString(new MessageDTO<>(MessageType.GAME_STATE, new GameDTO(board.get())));
     }
 
@@ -70,7 +67,7 @@ public class WebSocketGameController {
     @SneakyThrows
     @SendTo("/topic/{id}")
     @MessageMapping("/game/{id}/ping")
-    public String ping(@DestinationVariable Long id){
+    public String ping(){
         return "pong";
     }
 
