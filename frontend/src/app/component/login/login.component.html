@@ -1,0 +1,16 @@
+<div class="card position-absolute top-50 start-50 translate-middle w-25">
+  <div class="card-body d-flex flex-column">
+    <h3 class="card-title mb-3">login</h3>
+    <form [formGroup]='loginForm' (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+        <label for="login" class="form-label">Login</label>
+        <input id="login" type="text" formControlName="login" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="text" formControlName="password" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary float-end" [disabled]="!loginForm.valid">login</button>
+    </form>
+  </div>
+</div>

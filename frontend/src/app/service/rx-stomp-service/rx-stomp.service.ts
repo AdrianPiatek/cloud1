@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RxStomp} from "@stomp/rx-stomp";
-import {StompFactory} from "../utility/stomp-factory";
+import {StompFactory} from "../../utility/stomp-factory";
 
 @Injectable({
   providedIn: 'root',

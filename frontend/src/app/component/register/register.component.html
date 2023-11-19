@@ -1,0 +1,20 @@
+<div class="card position-absolute top-50 start-50 translate-middle w-25">
+  <div class="card-body d-flex flex-column">
+    <h3 class="card-title mb-3">Register</h3>
+    <form [formGroup]='registerForm' (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+        <label for="login" class="form-label">Login</label>
+        <input id="login" type="text" formControlName="login" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="text" formControlName="password" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="confirm-password" class="form-label">Confirm password</label>
+        <input id="confirm-password" type="text" formControlName="confirmPassword" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary float-end" [disabled]="!registerForm.valid">register</button>
+    </form>
+  </div>
+</div>

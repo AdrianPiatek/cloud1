@@ -1,19 +1,14 @@
-import {Component, inject, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {GameService} from "../../service/game.service";
+import {Component} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
 
-  private gameService = inject(GameService)
-
-  ngOnInit(): void {
-    this.gameService.ping()
-  }
 }
