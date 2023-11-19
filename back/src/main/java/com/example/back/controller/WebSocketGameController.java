@@ -81,8 +81,7 @@ public class WebSocketGameController {
 
     private void sendError(Long gameId, String errorMsg){
         var dest = "/topic/" + gameId + "/error";
-        var error = new ErrorDTO(errorMsg);
-        messagingTemplate.convertAndSend(dest, error);
+        messagingTemplate.convertAndSend(dest, errorMsg);
     }
 
     private void sendResult(Long gameId, Board board){

@@ -1,4 +1,4 @@
-import {computed, inject, Injectable, signal, Signal} from '@angular/core';
+import {computed, effect, inject, Injectable, signal, Signal} from '@angular/core';
 import {RxStompService} from "../rx-stomp-service/rx-stomp.service";
 import {Message} from "@stomp/stompjs";
 import {GameState} from "../../entity/game-state";
@@ -12,6 +12,7 @@ export class GameService {
   private stompService = inject(RxStompService)
   private gameStateMessage: Signal<Message | undefined> = signal(undefined)
   private resultMessage: Signal<Message | undefined> = signal(undefined)
+  private errorMessage: Signal<Message | undefined> = signal(undefined)
   gameState: Signal<GameState | undefined> = computed(() => {
     let game = this.gameStateMessage()
     if (game != undefined)
@@ -29,13 +30,11 @@ export class GameService {
     })
   }
 
-  private errorObservable(id: number): void{
-    this.stompService.watch(`/topic/${id}/error`).subscribe(console.log)
-  }
-
   subscribe(id: number): void{
     this.gameStateMessage = toSignal(this.stompService.watch(`/topic/${id}/game-state`))
     this.resultMessage = toSignal(this.stompService.watch(`/topic/${id}/result`))
+    this.errorMessage = toSignal(this.stompService.watch(`/topic/${id}/error`))
+    effect(() => console.log(this.errorMessage()?.body))
   }
 
   move(username: string, position: number) {
