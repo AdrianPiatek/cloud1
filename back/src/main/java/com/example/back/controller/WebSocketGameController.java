@@ -33,9 +33,10 @@ public class WebSocketGameController {
 
     @MessageMapping("/game/{id}/move")
     public void move(@DestinationVariable Long id, MoveDTO move){
+        System.out.println("test");
         var board = boardService.getById(id);
         if (board.isEmpty()) {
-            sendError(id, "Game with this ID dose not exist");
+            sendError(id, "Game with this ID does not exist");
             return;
         }
 
@@ -45,7 +46,7 @@ public class WebSocketGameController {
             return;
         }
 
-        sendGameState(id,board.get());
+        sendGameState(id, board.get());
     }
 
 

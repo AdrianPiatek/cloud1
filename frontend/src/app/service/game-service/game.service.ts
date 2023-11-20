@@ -35,12 +35,13 @@ export class GameService {
     this.resultMessage = toSignal(this.stompService.watch(`/topic/${id}/result`))
     this.errorMessage = toSignal(this.stompService.watch(`/topic/${id}/error`))
     effect(() => console.log(this.errorMessage()?.body))
+    this.getGameState(id)
   }
 
   move(username: string, position: number) {
     this.stompService.publish({
-      destination: `app/game/${this.gameState()?.gameId}`,
-      body: JSON.stringify({username: username, position: position})
+      destination: `app/game/move`,
+      // body: JSON.stringify({username: username, position: position})
     })
   }
 }

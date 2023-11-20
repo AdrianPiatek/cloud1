@@ -1,3 +1,7 @@
-<div [ngClass]="classes" style="width: 100px; height: 100px" class="border border-black">
-
+<div [ngClass]="classes" style="width: 100px; height: 100px" class="border border-black d-flex">
+  @if (sign() === "X") {
+    <i class="bi bi-x-lg text-primary m-auto" style="font-size: 50px"></i>
+  } @else if (sign() === "O"){
+    <i class="bi bi-circle text-danger m-auto" style="font-size: 50px"></i>
+  }
 </div>
