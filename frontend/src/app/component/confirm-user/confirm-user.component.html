@@ -1,0 +1,16 @@
+<div class="card position-absolute top-50 start-50 translate-middle w-25">
+  <div class="card-body d-flex flex-column">
+    <h3 class="card-title mb-3">Confirm user</h3>
+    <form [formGroup]='confirmForm' (ngSubmit)="onSubmit()">
+      <div class="mb-2">
+        <label for="username" class="form-label">Username</label>
+        <input id="username" type="text" formControlName="username" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="code" class="form-label">Code</label>
+        <input id="code" type="text" formControlName="code" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary float-end" [disabled]="!confirmForm.valid">confirm</button>
+    </form>
+  </div>
+</div>
