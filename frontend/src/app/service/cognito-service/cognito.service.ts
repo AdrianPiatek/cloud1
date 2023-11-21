@@ -25,6 +25,7 @@ export class CognitoService {
     let session = this.cognitoUserSession()
     return session ? session.isValid() : false
   })
+
   login(username: string, password: string) {
 
     let authDetails = new AuthenticationDetails({
@@ -49,10 +50,10 @@ export class CognitoService {
     })
   }
 
-  register(username: string, email: string, password: string){
+  register(username: string, email: string, password: string) {
     let attr = new CognitoUserAttribute({Name: 'email', Value: email})
     this.userPool.signUp(username, password, [attr], [], (err) => {
-      if(err) {
+      if (err) {
         console.log(err)
         return
       }
@@ -60,14 +61,14 @@ export class CognitoService {
     })
   }
 
-  confirmUser(username: string, code: string){
+  confirmUser(username: string, code: string) {
     let cognitoUser = new CognitoUser({
       Username: username,
       Pool: this.userPool
     })
 
     cognitoUser.confirmRegistration(code, false, (err) => {
-      if(err) {
+      if (err) {
         console.log(err)
         return
       }
@@ -75,12 +76,12 @@ export class CognitoService {
     })
   }
 
-  logout(){
-    if(this.isLoggedIn())
+  logout() {
+    if (this.isLoggedIn())
       this.getCurrUser()?.signOut(() => this.cognitoUserSession.set(undefined))
   }
 
-  getCurrUser(){
+  getCurrUser() {
     return this.userPool.getCurrentUser()
   }
 }
