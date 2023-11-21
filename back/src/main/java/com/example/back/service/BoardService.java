@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -71,10 +73,11 @@ public class BoardService {
                 .findFirst();
     }
 
-    @SneakyThrows
-    private void makeMove(Sign sign, int position, Board board) {
-        if (checkIfMoveIsPossible(board.getGrid(), position, sign))
-            throw new PositionTakenException();
+    private void makeMove(Sign sign, int position, Board board, BiConsumer<Long, String> handleError) {
+        if (!checkIfMoveIsPossible(board.getGrid(), position, sign)) {
+            handleError.accept(board.getId(),"move not possible");
+            return;
+        }
         board.getGrid().set(position, sign);
         var optionalWinner = check(board.getGrid());
         if (optionalWinner.isPresent()) {
@@ -90,8 +93,8 @@ public class BoardService {
         save(board);
     }
 
-    public void playerMove(MoveDTO move, Board board) {
-        makeMove(getUserSign(move.username(), board), move.position(), board);
+    public void playerMove(MoveDTO move, Board board, BiConsumer<Long, String> handleError) {
+        makeMove(getUserSign(move.username(), board), move.position(), board, handleError);
     }
 
     public Sign getUserSign(String username, Board board) {

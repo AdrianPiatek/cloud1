@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public record ResultDTO(GameDTO gameDTO, Map<String, GameResult> results) {
+public record ResultDTO(Map<String, GameResult> results) {
     public ResultDTO(Board board) {
-        this(new GameDTO(board), board.getResults().stream().collect(Collectors.toMap(result -> result.getUser().getUsername(), Result::getGameResult)));
+        this(board.getResults().stream().collect(Collectors.toMap(result -> result.getUser().getUsername(), Result::getGameResult)));
     }
 }

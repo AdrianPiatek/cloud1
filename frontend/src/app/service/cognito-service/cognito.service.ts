@@ -66,6 +66,7 @@ export class CognitoService {
       Username: username,
       Pool: this.userPool
     })
+    // cognitoUser.resendConfirmationCode((err) => {})
 
     cognitoUser.confirmRegistration(code, false, (err) => {
       if (err) {

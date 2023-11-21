@@ -38,10 +38,14 @@ export class GameService {
     this.getGameState(id)
   }
 
-  move(username: string, position: number) {
+  move(position: number): void {
+    let username = 'test2' //TODO get from userService
+    let gameId = this.gameState()?.gameId
+    if (!gameId)
+      return
     this.stompService.publish({
-      destination: `app/game/move`,
-      // body: JSON.stringify({username: username, position: position})
+      destination: `/app/game/${gameId}/move`,
+      body: JSON.stringify({username: username, position: position})
     })
   }
 }
