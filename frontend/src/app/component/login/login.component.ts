@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
+import {CognitoService} from "../../service/cognito-service/cognito.service";
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import {FormBuilder, ReactiveFormsModule, Validators} from "@angular/forms";
 })
 export class LoginComponent {
   private formBuilder = inject(FormBuilder)
+  cognitoService = inject(CognitoService)
 
   loginForm = this.formBuilder.group({
     login: ['', [Validators.required, Validators.minLength(4)]],
@@ -19,6 +21,9 @@ export class LoginComponent {
   })
 
   onSubmit(){
-    console.log(this.loginForm.value)
+    let username = this.loginForm.value.login
+    let password = this.loginForm.value.password
+    if (username && password)
+      this.cognitoService.login(username, password)
   }
 }

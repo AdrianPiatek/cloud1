@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from "@angular/router";
+import {CognitoService} from "../../service/cognito-service/cognito.service";
 
 @Component({
   selector: 'app-home',
@@ -10,5 +11,5 @@ import {RouterLink} from "@angular/router";
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  cognitoService = inject(CognitoService)
 }
