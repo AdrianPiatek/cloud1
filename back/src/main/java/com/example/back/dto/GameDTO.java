@@ -12,7 +12,7 @@ public record GameDTO(List<Sign> grid, String playerTurn, State state, String pl
         this(board.getGrid(),
                 BoardService.getNextPlayer(board),
                 board.getState(), board.getPlayer1().getUsername(),
-                board.getPlayer2().getUsername(),
+                board.getPlayer2() == null ? null : board.getPlayer2().getUsername(),
                 board.getId()
         );
     }

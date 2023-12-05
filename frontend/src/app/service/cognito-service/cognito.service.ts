@@ -20,10 +20,15 @@ export class CognitoService {
     ClientId: '5dpsadu1gdsineldc2g2v5ddq6'
   })
 
-  private cognitoUserSession: WritableSignal<CognitoUserSession | undefined> = signal(undefined)
+  cognitoUserSession: WritableSignal<CognitoUserSession | undefined> = signal(undefined)
   isLoggedIn = computed(() => {
     let session = this.cognitoUserSession()
     return session ? session.isValid() : false
+  })
+  accessToken = computed(() => this.cognitoUserSession()?.getAccessToken())
+  accessHeader = computed(() => {
+    let token = this.accessToken()?.getJwtToken()
+    return token ? {'Authorization': `Bearer ${token}`} : undefined
   })
 
   login(username: string, password: string) {
