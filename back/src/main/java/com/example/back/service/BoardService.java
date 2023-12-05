@@ -5,18 +5,13 @@ import com.example.back.entity.Board;
 import com.example.back.entity.Sign;
 import com.example.back.entity.State;
 import com.example.back.entity.User;
-import com.example.back.exception.PositionTakenException;
 import com.example.back.repository.BoardRepository;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,12 +27,9 @@ public class BoardService {
     }
 
     private static Sign getNextSign(List<Sign> grid) {
-        return grid.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .values()
-                .stream()
-                .distinct()
-                .count() == 1 ? Sign.X : Sign.O;
+        var map = grid.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        return Objects.equals(map.get(Sign.X), map.get(Sign.O)) ? Sign.X : Sign.O;
+
     }
 
     public void save(Board board) {
@@ -52,7 +44,7 @@ public class BoardService {
             0, 1, 2,
             3, 4, 5,
             6, 7, 8,
-            0, 3, 7,
+            0, 3, 6,
             1, 4, 7,
             2, 5, 8,
             0, 4, 8,
@@ -94,6 +86,10 @@ public class BoardService {
     }
 
     public void playerMove(MoveDTO move, Board board, BiConsumer<Long, String> handleError) {
+        if (board.getState() != State.IN_PROGRESS){
+            handleError.accept(board.getId(), "Game not in progress");
+            return;
+        }
         makeMove(getUserSign(move.username(), board), move.position(), board, handleError);
     }
 

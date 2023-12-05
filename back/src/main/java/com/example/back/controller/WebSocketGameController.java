@@ -3,15 +3,11 @@ package com.example.back.controller;
 import com.example.back.dto.*;
 import com.example.back.entity.Board;
 import com.example.back.entity.State;
-import com.example.back.exception.PositionTakenException;
 import com.example.back.service.BoardService;
 import com.example.back.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
@@ -64,6 +60,7 @@ public class WebSocketGameController {
         }
 
         boardService.playerSurrender(user.get(), board.get());
+        sendGameState(id, board.get());
         sendResult(id, board.get());
     }
 
