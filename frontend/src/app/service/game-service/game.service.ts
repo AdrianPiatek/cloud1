@@ -14,7 +14,7 @@ import {Subscription} from "rxjs";
 })
 export class GameService {
 
-  private API_URL = 'http://localhost:8080'
+  private API_URL = `http://${window.location.hostname}:8080`
 
   private stompService = inject(RxStompService)
   private cognitoService = inject(CognitoService)
@@ -40,7 +40,6 @@ export class GameService {
   })
   playerResult= computed(() => {
     let username = this.userInfo()?.username
-    console.log(this.result()?.results)
     return username ? this.result()?.results.get(username) : undefined
   })
   userInfo: WritableSignal<UserInfo | undefined> = signal(undefined)
