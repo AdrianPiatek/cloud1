@@ -1,6 +1,5 @@
 package com.example.back.service;
 
-import com.example.back.dto.UserCredentialsDTO;
 import com.example.back.entity.Board;
 import com.example.back.entity.User;
 import com.example.back.repository.UserRepository;
@@ -31,10 +30,9 @@ public class UserService {
         save(user);
     }
 
-    public User register(UserCredentialsDTO userCredentials) {
+    public User register(String username) {
         var user = User.builder()
-                .username(userCredentials.getUsername())
-                .password(userCredentials.getPassword())
+                .username(username)
                 .build();
         save(user);
         return user;

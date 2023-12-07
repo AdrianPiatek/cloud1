@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: back/.
+    image: ulpioro/cloud1-backend
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=test
+  frontend:
+    depends_on:
+      - backend
+    build: 
+      context: frontend/.
+    image: ulpioro/cloud1-frontend

@@ -20,7 +20,6 @@ public class User {
     private Long id;
     @Column(unique = true)
     private String username;
-    private String password;
     @JsonIgnore
     @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
