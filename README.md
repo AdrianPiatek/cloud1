@@ -24,8 +24,8 @@ Create and configure database acording to your needs
 
 ## Connecting to DB
 
-Use endpoint provided in **Connectivity & security** panel  
-If you want to access DB outside aws services change security group settings  
+- Use endpoint provided in **Connectivity & security** panel
+- If you want to access DB outside aws services change security group settings  
 
 # ECS (Elastic conteiner service) - docker 
 
