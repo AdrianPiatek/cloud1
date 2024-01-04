@@ -14,7 +14,7 @@ import {Subscription} from "rxjs";
 })
 export class GameService {
 
-  private API_URL = `http://${window.location.hostname}:8080`
+  private API_URL = `http://${window.location.hostname}`
 
   private stompService = inject(RxStompService)
   private cognitoService = inject(CognitoService)

@@ -1,9 +1,8 @@
 services:
   backend:
-    build: back/.
-    image: ulpioro/cloud1-backend
-    depends_on:
-      - postgres
+    ports:
+    - "8080:8080"
+    image: ulpioro/cloud2-backend
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
   postgres:
@@ -11,8 +10,6 @@ services:
     environment:
       - POSTGRES_PASSWORD=test
   frontend:
-    depends_on:
-      - backend
-    build: 
-      context: frontend/.
-    image: ulpioro/cloud1-frontend
+    ports: 
+    - "80:80"
+    image: ulpioro/cloud2-frontend
